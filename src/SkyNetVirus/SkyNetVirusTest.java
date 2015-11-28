@@ -7,15 +7,6 @@ import java.util.*;
 
 public class SkyNetVirusTest
 {
-
-	private SkyNetVirus classUnderTest;
-
-	@org.junit.Before
-	public void setUp() throws Exception
-	{
-		classUnderTest = new SkyNetVirus();
-	}
-
 	@Test
 	public void linearNetwork() throws Exception
 	{
@@ -65,8 +56,7 @@ public class SkyNetVirusTest
 
 		String link = SkyNetVirus.calcNextLink(network, gatewaySet, enemyPosition);
 
-		Assert.
-				assertEquals("", "3 2", link);
+		Assert.assertEquals("", "1 3", link);
 	}
 
 	@Test
@@ -199,9 +189,9 @@ public class SkyNetVirusTest
 
         int enemyPosition = 11;
 
-        String link = classUnderTest.calcNextLink(network, gatewaySet, enemyPosition);
+        String link = SkyNetVirus.calcNextLink(network, gatewaySet, enemyPosition);
 
-        Assert.assertEquals("", "3 2", link);
+        Assert.assertEquals("", "6 0", link);
     }
 
 }
