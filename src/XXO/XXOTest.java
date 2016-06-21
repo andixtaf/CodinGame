@@ -80,6 +80,37 @@ public class XXOTest
 		Assert.assertThat(isVictory, is(true));
 	}
 
+	@Test
+	public void testIsVictoryDiagonalWhenPlayerOneHasDiagonalOneReturnTrue() throws Exception
+	{
+		Integer[][] matrix = {
+				{1,0,2},
+				{0,1,2},
+				{2,2,1}
+		};
+
+		Integer playerValue = 1;
+
+		Boolean isVictory = classUnderTest.isVictoryDiagonal(matrix, playerValue);
+
+		Assert.assertThat(isVictory, is(true));
+	}
+
+	@Test
+	public void testIsVictoryDiagonalWhenPlayerOneHasDiagonalTwoReturnTrue() throws Exception
+	{
+		Integer[][] matrix = {
+				{1,0,2},
+				{0,2,2},
+				{2,2,2}
+		};
+
+		Integer playerValue = 2;
+
+		Boolean isVictory = classUnderTest.isVictoryDiagonal(matrix, playerValue);
+
+		Assert.assertThat(isVictory, is(true));
+	}
 
 
 	@Test
