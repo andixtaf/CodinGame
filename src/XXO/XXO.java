@@ -1,81 +1,83 @@
 package XXO;
 
-import java.util.Objects;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
 
 class XXO
 {
-	boolean isVictory(Integer[][] matrix, Integer playerValue)
-	{
-		return isVictoryHorizontal(matrix, playerValue) ||
-				isVictoryVertical(matrix, playerValue) ||
-				isVictoryDiagonal(matrix, playerValue);
-	}
+	private static Integer[][] playground = {
+			{0, 0, 0},
+			{0, 0, 0},
+			{0, 0, 0}
+	};
 
-	Boolean isVictoryHorizontal(Integer[][] matrix, Integer playerValue)
-	{
-		Boolean isVictory = true;
+	private static XXOValidator validator = new XXOValidator();
 
-		for (Integer[] firstRow : matrix)
+	private static Integer actualPlayer = 1;
+
+	public static void main(String[] args)
+	{
+		init();
+
+		System.out.println("XXO starts!");
+
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+		String input = "";
+
+		while(!validator.checkWinForGivenPlayer(playground, actualPlayer))
 		{
-			isVictory = true;
+			printField();
 
-			for (int i = 0; i < firstRow.length - 1; i++)
+			System.out.println("Player: " + actualPlayer);
+			System.out.println("Set Input x,y:");
+
+			try
 			{
-				isVictory &= (Objects.equals(firstRow[i], playerValue));
+				input = reader.readLine();
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
 			}
 
-			if (isVictory)
+			String[] coordinates = input.split(",");
+
+			Integer x = Integer.parseInt(coordinates[0]);
+			Integer y = Integer.parseInt(coordinates[1]);
+
+			playground[x][y] = actualPlayer++;
+
+			if(actualPlayer > 2)
 			{
-				break;
-			}
-
-		}
-		return isVictory;
-	}
-
-	Boolean isVictoryVertical(Integer[][] matrix, Integer playerValue)
-	{
-		Boolean isVictory = true;
-
-		for (int i = 0; i < matrix.length; i++)
-		{
-			isVictory = true;
-
-			for (int j = 0; j < matrix.length; j++)
-			{
-				isVictory &= (Objects.equals(matrix[j][i], playerValue));
-			}
-
-			if (isVictory)
-			{
-				break;
-			}
-
-		}
-		return isVictory;
-	}
-
-	Boolean isVictoryDiagonal(Integer[][] matrix, Integer playerValue)
-	{
-		Boolean isVictory = true;
-
-		for (int i = 0; i < matrix.length; i++)
-		{
-			isVictory &= (Objects.equals(matrix[i][i], playerValue));
-
-		}
-
-		if(!isVictory)
-		{
-			isVictory = true;
-
-			for (int i = matrix.length-1; i > 0; i--)
-			{
-				isVictory &= (Objects.equals(matrix[i][i], playerValue));
-
+				actualPlayer = 1;
 			}
 		}
 
-		return isVictory;
+		System.out.println("Player: " + actualPlayer + " has won!!!!");
+		printField();
+
 	}
+
+	private static void printField()
+	{
+		for(int i = 0; i < playground.length; i++)
+		{
+			System.out.println(Arrays.toString(playground[i]));
+		}
+	}
+
+	private static void init()
+	{
+		actualPlayer = 1;
+
+		playground = new Integer[][]{
+				{0, 0, 0},
+				{0, 0, 0},
+				{0, 0, 0}
+		};
+	}
+
 }

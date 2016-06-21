@@ -6,14 +6,14 @@ import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
 
-public class XXOTest
+public class XXOValidatorTest
 {
-	private XXO classUnderTest;
+	private XXOValidator classUnderTest;
 
 	@Before
 	public void setUp() throws Exception
 	{
-		classUnderTest = new XXO();
+		classUnderTest = new XXOValidator();
 	}
 
 	@Test
@@ -122,9 +122,7 @@ public class XXOTest
 				{0,0,0}
 		};
 
-		Integer playerValue = 1;
-
-		Boolean isVictory = classUnderTest.isVictory(matrix, playerValue);
+		Boolean isVictory = classUnderTest.checkWinForGivenPlayer(matrix, 1);
 
 		Assert.assertThat(isVictory, is(false));
 	}
@@ -138,9 +136,35 @@ public class XXOTest
 				{0,0,0}
 		};
 
-		Integer playerValue = 1;
+		Boolean isVictory = classUnderTest.checkWinForGivenPlayer(matrix, 2);
 
-		Boolean isVictory = classUnderTest.isVictory(matrix, playerValue);
+		Assert.assertThat(isVictory, is(true));
+	}
+
+	@Test
+	public void errorCaseReal() throws Exception
+	{
+		Integer[][] matrix = {
+				{1,1,0},
+				{2,0,0},
+				{2,0,0}
+		};
+
+		Boolean isVictory = classUnderTest.checkWinForGivenPlayer(matrix, 1);
+
+		Assert.assertThat(isVictory, is(false));
+	}
+
+	@Test
+	public void errorCaseReal2() throws Exception
+	{
+		Integer[][] matrix = {
+				{1,1,1},
+				{2,2,0},
+				{0,0,0}
+		};
+
+		Boolean isVictory = classUnderTest.checkWinForGivenPlayer(matrix, 1);
 
 		Assert.assertThat(isVictory, is(true));
 	}
